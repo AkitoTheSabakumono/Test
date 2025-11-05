@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container result-container">
+        <h1>Test Result</h1>
+        <div id="score-container" class="score-box">
+            <!-- Score will appear here -->
+        </div>
+        <p id="message" class="result-message"></p>
+        <div class="buttons">
+            <button id="retake-btn" class="btn">Retake Test</button>
+            <button id="home-btn" class="btn">Go to Homepage</button>
+        </div>
+    </div>
+
+    <script>
+        // Get score and total from localStorage
+        const score = parseInt(localStorage.getItem('score')) || 0;
+        const total = parseInt(localStorage.getItem('total')) || 0;
+
+        const scoreContainer = document.getElementById('score-container');
+        scoreContainer.innerHTML = `<p>Your Score: <strong>${score}</strong> / ${total}</p>`;
+
+        // Add message based on performance
+        const message = document.getElementById('message');
+        const percentage = (score / total) * 100;
+
+        if(percentage >= 90){
+            message.textContent = "Excellent! 🎉";
+            message.style.color = "#28a745";
+        } else if(percentage >= 70){
+            message.textContent = "Good job! 👍";
+            message.style.color = "#007bff";
+        } else if(percentage >= 50){
+            message.textContent = "Not bad, keep practicing! 💡";
+            message.style.color = "#ffc107";
+        } else {
+            message.textContent = "Needs improvement. Try again! 💪";
+            message.style.color = "#dc3545";
+        }
+
+        // Buttons
+        document.getElementById('retake-btn').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('home-btn').addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
+

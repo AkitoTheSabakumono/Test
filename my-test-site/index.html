@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Test Site</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Quick inline styling if you want basic look without CSS file */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 30px 0;
+    }
+    .test-menu {
+      margin: 50px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .test-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #2196F3;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .test-button:hover {
+      background-color: #0b7dda;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 15px 0;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Test Site</h1>
+    <p>Select a test to get started:</p>
+  </header>
+
+  <main>
+    <div class="test-menu">
+      <a href="test.html?test=english" class="test-button">English Test</a>
+      <a href="test.html?test=japanese" class="test-button">Japanese Test</a>
+      <a href="test.html?test=iq" class="test-button">IQ Test</a>
+      <a href="test.html?test=personality" class="test-button">Personality Test</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Test Site</p>
+  </footer>
+</body>
+</html>
+
