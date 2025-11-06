@@ -9,8 +9,8 @@ function loadTest() {
     const urlParams = new URLSearchParams(window.location.search);
     const testName = urlParams.get('test') || 'english';
 
-    const path = `/data/${testName}.json`;
-; // Relative path from test.html
+    // ✅ FIXED: removed leading slash
+    const path = `data/${testName}.json`; 
     console.log(`Attempting to load test file: ${path}`);
 
     fetch(path)
@@ -77,4 +77,3 @@ if (nextBtn) {
 
 // Start test
 window.addEventListener('DOMContentLoaded', loadTest);
-
