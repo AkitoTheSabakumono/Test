@@ -1,5 +1,3 @@
-// test.js
-
 let questions = [];
 let currentQuestion = 0;
 let score = 0;
@@ -9,8 +7,7 @@ function loadTest() {
     const urlParams = new URLSearchParams(window.location.search);
     const testName = urlParams.get('test') || 'english';
 
-    // ✅ FIXED: removed leading slash
-    const path = `data/${testName}.json`; 
+    const path = `data/${testName}.json`; // relative path for GitHub Pages
     console.log(`Attempting to load test file: ${path}`);
 
     fetch(path)
@@ -31,7 +28,6 @@ function loadTest() {
 // Display current question
 function showQuestion() {
     if (currentQuestion >= questions.length) {
-        // Save score and go to result page
         localStorage.setItem('score', score);
         localStorage.setItem('total', questions.length);
         window.location.href = 'result.html';
@@ -54,19 +50,15 @@ function showQuestion() {
     }
 }
 
-// Handle answer selection
 function selectAnswer(e) {
     const selected = e.target.dataset.answer;
     const q = questions[currentQuestion];
-
-    // Score using mapping (0,1,3)
     score += q.scores[selected] || 0;
-
     currentQuestion++;
     showQuestion();
 }
 
-// Optional: "Next" button (if you have one)
+// Optional: "Next" button (skip if answers are selected)
 const nextBtn = document.getElementById('next-btn');
 if (nextBtn) {
     nextBtn.addEventListener('click', () => {
