@@ -1,9 +1,8 @@
-// test.js
 let questions = [];
 let currentQuestion = 0;
-let correctCount = 0; // Track correct answers
+let correctCount = 0;
 
-// Load test JSON based on URL parameter
+// Load test JSON and select random questions
 function loadTest() {
     const urlParams = new URLSearchParams(window.location.search);
     const testName = urlParams.get('test') || 'english';
@@ -15,14 +14,14 @@ function loadTest() {
             return response.json();
         })
         .then(data => {
-            // Shuffle questions and limit to 20
-            questions = shuffleArray(data).slice(0, 20);
+            // Shuffle and pick random 20 questions
+            questions = getRandomQuestions(data, 20);
             showQuestion();
         })
         .catch(err => console.error("Error loading test:", err));
 }
 
-// Display current question and answer buttons
+// Show current question
 function showQuestion() {
     if (currentQuestion >= questions.length) {
         goToResult();
@@ -36,28 +35,30 @@ function showQuestion() {
     qContainer.innerHTML = `<h2>${currentQuestion + 1}. ${q.question}</h2>`;
     aContainer.innerHTML = '';
 
-    for (let key in q.answers) {
+    // Randomize options order
+    const optionIndexes = shuffleArray(q.options.map((_, i) => i));
+
+    optionIndexes.forEach(i => {
         const btn = document.createElement('button');
-        btn.textContent = q.answers[key];
-        btn.dataset.answer = key;
+        btn.textContent = q.options[i];
+        btn.dataset.answer = i;
         btn.addEventListener('click', selectAnswer);
         aContainer.appendChild(btn);
-    }
+    });
 }
 
 // Handle answer selection
 function selectAnswer(e) {
-    const selected = e.target.dataset.answer;
+    const selected = parseInt(e.target.dataset.answer);
     const q = questions[currentQuestion];
 
-    // Increment correctCount if answer is correct
-    if (q.correct === selected) correctCount++;
+    if (selected === q.answer) correctCount++;
 
     currentQuestion++;
     showQuestion();
 }
 
-// Navigate to result page and calculate rank
+// Navigate to result page
 function goToResult() {
     const total = questions.length;
     const percentage = (correctCount / total) * 100;
@@ -77,6 +78,12 @@ function goToResult() {
 // Utility: shuffle array
 function shuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
+}
+
+// Utility: pick N random questions
+function getRandomQuestions(arr, n) {
+    const shuffled = shuffleArray([...arr]);
+    return shuffled.slice(0, Math.min(n, shuffled.length));
 }
 
 // Start test when page loads
