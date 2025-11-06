@@ -5,21 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Take a Test</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+        .container {
+            margin: 50px auto;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #4CAF50;
+        }
+        #answers-container button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 12px 25px;
+            background-color: #2196F3;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #answers-container button:hover {
+            background-color: #0b7dda;
+        }
+        #next-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1 id="test-title">Test</h1>
-        <div id="question-container">
-            <!-- Question will appear here -->
-        </div>
-        <div id="answers-container">
-            <!-- Answers buttons will appear here -->
-        </div>
+        <div id="question-container"></div>
+        <div id="answers-container"></div>
         <button id="next-btn">Next</button>
     </div>
 
-    <script src="js/utils.js"></script>
     <script src="js/test.js"></script>
 </body>
 </html>
-
