@@ -5,13 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Result</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 50px auto;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .btn {
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #2196F3;
+            color: white;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0b7dda;
+        }
+    </style>
 </head>
 <body>
     <div class="container result-container">
         <h1>Test Result</h1>
-        <div id="score-container" class="score-box">
-            <!-- Score will appear here -->
-        </div>
+        <div id="score-container" class="score-box"></div>
         <p id="message" class="result-message"></p>
         <div class="buttons">
             <button id="retake-btn" class="btn">Retake Test</button>
@@ -20,14 +51,12 @@
     </div>
 
     <script>
-        // Get score and total from localStorage
         const score = parseInt(localStorage.getItem('score')) || 0;
         const total = parseInt(localStorage.getItem('total')) || 0;
 
         const scoreContainer = document.getElementById('score-container');
         scoreContainer.innerHTML = `<p>Your Score: <strong>${score}</strong> / ${total}</p>`;
 
-        // Add message based on performance
         const message = document.getElementById('message');
         const percentage = (score / total) * 100;
 
@@ -45,7 +74,6 @@
             message.style.color = "#dc3545";
         }
 
-        // Buttons
         document.getElementById('retake-btn').addEventListener('click', () => {
             window.history.back();
         });
@@ -56,4 +84,3 @@
     </script>
 </body>
 </html>
-
