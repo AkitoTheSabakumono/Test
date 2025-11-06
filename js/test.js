@@ -1,7 +1,9 @@
+// test.js
 let questions = [];
 let currentQuestion = 0;
-let correctCount = 0; // count of correct answers for rank
+let correctCount = 0; // Track correct answers
 
+// Load test JSON based on URL parameter
 function loadTest() {
     const urlParams = new URLSearchParams(window.location.search);
     const testName = urlParams.get('test') || 'english';
@@ -13,27 +15,17 @@ function loadTest() {
             return response.json();
         })
         .then(data => {
-            // Shuffle and pick up to 20 questions
+            // Shuffle questions and limit to 20
             questions = shuffleArray(data).slice(0, 20);
             showQuestion();
         })
         .catch(err => console.error("Error loading test:", err));
 }
 
+// Display current question and answer buttons
 function showQuestion() {
     if (currentQuestion >= questions.length) {
-        // save result as rank
-        const percentage = (correctCount / questions.length) * 100;
-        let rank = '';
-        if(percentage >= 90) rank = 'C2';
-        else if(percentage >= 75) rank = 'C1';
-        else if(percentage >= 60) rank = 'B2';
-        else if(percentage >= 45) rank = 'B1';
-        else if(percentage >= 30) rank = 'A2';
-        else rank = 'A1';
-
-        localStorage.setItem('rank', rank);
-        window.location.href = 'result.html';
+        goToResult();
         return;
     }
 
@@ -53,18 +45,39 @@ function showQuestion() {
     }
 }
 
+// Handle answer selection
 function selectAnswer(e) {
     const selected = e.target.dataset.answer;
     const q = questions[currentQuestion];
 
-    if(q.correct === selected) correctCount++; // assuming JSON has `correct` key
+    // Increment correctCount if answer is correct
+    if (q.correct === selected) correctCount++;
+
     currentQuestion++;
     showQuestion();
 }
 
-// Shuffle helper
+// Navigate to result page and calculate rank
+function goToResult() {
+    const total = questions.length;
+    const percentage = (correctCount / total) * 100;
+    let rank = '';
+
+    if (percentage >= 90) rank = 'C2';
+    else if (percentage >= 75) rank = 'C1';
+    else if (percentage >= 60) rank = 'B2';
+    else if (percentage >= 45) rank = 'B1';
+    else if (percentage >= 30) rank = 'A2';
+    else rank = 'A1';
+
+    localStorage.setItem('rank', rank);
+    window.location.href = 'result.html';
+}
+
+// Utility: shuffle array
 function shuffleArray(arr) {
     return arr.sort(() => Math.random() - 0.5);
 }
 
+// Start test when page loads
 window.addEventListener('DOMContentLoaded', loadTest);
