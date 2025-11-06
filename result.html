@@ -1,86 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Result</title>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            margin: 50px auto;
-            max-width: 600px;
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #4CAF50;
-        }
-        .btn {
-            padding: 12px 25px;
-            margin: 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            background-color: #2196F3;
-            color: white;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background-color: #0b7dda;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test Result</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+body {font-family: Arial, sans-serif; text-align:center; background:#f7f7f7; margin:0; padding:0;}
+.container {margin:50px auto; max-width:600px; background:white; padding:30px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+h1 {color:#4CAF50;}
+.btn {padding:12px 25px; margin:10px; border:none; border-radius:8px; cursor:pointer; background:#2196F3; color:white; font-size:16px;}
+.btn:hover {background:#0b7dda;}
+.rank {font-size:48px; color:#ff5722; margin:20px 0;}
+</style>
 </head>
 <body>
-    <div class="container result-container">
-        <h1>Test Result</h1>
-        <div id="score-container" class="score-box"></div>
-        <p id="message" class="result-message"></p>
-        <div class="buttons">
-            <button id="retake-btn" class="btn">Retake Test</button>
-            <button id="home-btn" class="btn">Go to Homepage</button>
-        </div>
-    </div>
+<div class="container">
+<h1>Test Result</h1>
+<p>Your Rank:</p>
+<div id="rank" class="rank"></div>
+<div class="buttons">
+    <button id="retake-btn" class="btn">Retake Test</button>
+    <button id="home-btn" class="btn">Go to Homepage</button>
+</div>
+</div>
 
-    <script>
-        const score = parseInt(localStorage.getItem('score')) || 0;
-        const total = parseInt(localStorage.getItem('total')) || 0;
+<script>
+const rank = localStorage.getItem('rank') || 'N/A';
+document.getElementById('rank').textContent = rank;
 
-        const scoreContainer = document.getElementById('score-container');
-        scoreContainer.innerHTML = `<p>Your Score: <strong>${score}</strong> / ${total}</p>`;
-
-        const message = document.getElementById('message');
-        const percentage = (score / total) * 100;
-
-        if(percentage >= 90){
-            message.textContent = "Excellent! 🎉";
-            message.style.color = "#28a745";
-        } else if(percentage >= 70){
-            message.textContent = "Good job! 👍";
-            message.style.color = "#007bff";
-        } else if(percentage >= 50){
-            message.textContent = "Not bad, keep practicing! 💡";
-            message.style.color = "#ffc107";
-        } else {
-            message.textContent = "Needs improvement. Try again! 💪";
-            message.style.color = "#dc3545";
-        }
-
-        document.getElementById('retake-btn').addEventListener('click', () => {
-            window.history.back();
-        });
-
-        document.getElementById('home-btn').addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
-    </script>
+document.getElementById('retake-btn').addEventListener('click', () => window.history.back());
+document.getElementById('home-btn').addEventListener('click', () => window.location.href='index.html');
+</script>
 </body>
 </html>
