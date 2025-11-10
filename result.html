@@ -36,13 +36,14 @@ const rank = localStorage.getItem(`${testName}_result`) || 'N/A';
 // Display it
 document.getElementById('rank').textContent = rank;
 
-
+// Buttons
 document.getElementById('retake-btn').addEventListener('click', () => {
-  // Go directly to the test’s start page
-  window.location.href = `${testName}.html`;
+  // ✅ Corrected for GitHub Pages
+  window.location.href = `test.html?test=${testName}`;
 });
 
-document.getElementById('home-btn').addEventListener('click', () => window.location.href='index.html');
+document.getElementById('home-btn').addEventListener('click', () => window.location.href = 'index.html');
+
 </script>
 </body>
 </html>
