@@ -85,6 +85,11 @@ function getRandomQuestions(arr, n) {
     const shuffled = shuffleArray([...arr]);
     return shuffled.slice(0, Math.min(n, shuffled.length));
 }
+document.getElementById('next').addEventListener('click', function() {
+  // Change the path below to your actual home page
+  window.location.href = 'index.html';  
+});
+
 
 // Start test when page loads
 window.addEventListener('DOMContentLoaded', loadTest);
