@@ -63,21 +63,41 @@ function selectAnswer(e) {
 }
 
 // Navigate to result page
-function goToResult() {
+function goToResult(testName) {
     const total = questions.length;
     const percentage = (correctCount / total) * 100;
-    let rank = '';
+    let result;
 
-    if (percentage >= 90) rank = 'C2';
-    else if (percentage >= 75) rank = 'C1';
-    else if (percentage >= 60) rank = 'B2';
-    else if (percentage >= 45) rank = 'B1';
-    else if (percentage >= 30) rank = 'A2';
-    else rank = 'A1';
+    switch (testName) {
+        case 'english':
+            if (percentage >= 90) result = 'C2';
+            else if (percentage >= 75) result = 'C1';
+            else if (percentage >= 60) result = 'B2';
+            else if (percentage >= 45) result = 'B1';
+            else if (percentage >= 30) result = 'A2';
+            else result = 'A1';
+            break;
 
-    localStorage.setItem('rank', rank);
-    window.location.href = 'result.html';
+        case 'japanese':
+            if (percentage >= 90) result = 'N1';
+            else if (percentage >= 75) result = 'N2';
+            else if (percentage >= 60) result = 'N3';
+            else if (percentage >= 45) result = 'N4';
+            else result = 'N5';
+            break;
+
+        default:
+            result = 'Unknown';
+    }
+
+    // Save result in localStorage
+    localStorage.setItem(`${testName}_result`, result);
+    localStorage.setItem(`${testName}_score`, percentage.toFixed(1));
+
+    // Redirect to result page
+    window.location.href = 'result.html?test=' + testName;
 }
+
 
 // Utility: shuffle array
 function shuffleArray(arr) {
