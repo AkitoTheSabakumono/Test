@@ -26,10 +26,22 @@ h1 {color:#4CAF50;}
 </div>
 
 <script>
-const rank = localStorage.getItem('rank') || 'N/A';
+// Get which test was completed (from the URL)
+const urlParams = new URLSearchParams(window.location.search);
+const testName = urlParams.get('test');
+
+// Get the specific result for that test
+const rank = localStorage.getItem(`${testName}_result`) || 'N/A';
+
+// Display it
 document.getElementById('rank').textContent = rank;
 
-document.getElementById('retake-btn').addEventListener('click', () => window.history.back());
+
+document.getElementById('retake-btn').addEventListener('click', () => {
+  // Go directly to the test’s start page
+  window.location.href = `${testName}.html`;
+});
+
 document.getElementById('home-btn').addEventListener('click', () => window.location.href='index.html');
 </script>
 </body>
